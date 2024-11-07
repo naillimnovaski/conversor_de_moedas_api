@@ -22,3 +22,10 @@ document.getElementById('currency-form').addEventListener('submit', async functi
    const valor = parseFloat(document.getElementById('amount').value);
    const daMoeda = document.getElementById('daMoeda').value;
    const paraMoeda = document.getElementById('paraMoeda').value;
+ // Exibir resultado
+ const conversao = document.getElementById('result');
+ conversao.textContent = `Resultado: ${convertedValue.toFixed(2)} ${paraMoeda}`;
+} else {
+ alert("Erro ao buscar a cotação. Tente novamente.");
+}
+});
