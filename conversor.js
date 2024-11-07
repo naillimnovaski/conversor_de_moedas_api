@@ -1,4 +1,7 @@
-// Função para buscar taxa de câmbio da API
+const apikey = `78587b9e64111d764de5bd5d`;
+  const apiURL = ` https://v6.exchangerate-api.com/v6/${apikey}/latest/`;
+
+ // Função para buscar taxa de câmbio da API
 async function getExchangeRate(daMoeda, paraMoeda) {
   try {
       const response = await fetch(`${apiURL}${daMoeda}`);
@@ -18,14 +21,26 @@ async function getExchangeRate(daMoeda, paraMoeda) {
 
 document.getElementById('currency-form').addEventListener('submit', async function(event) {
   event.preventDefault();
-   // Obter valores de entrada
-   const valor = parseFloat(document.getElementById('amount').value);
-   const daMoeda = document.getElementById('daMoeda').value;
-   const paraMoeda = document.getElementById('paraMoeda').value;
- // Exibir resultado
- const conversao = document.getElementById('result');
- conversao.textContent = `Resultado: ${convertedValue.toFixed(2)} ${paraMoeda}`;
-} else {
- alert("Erro ao buscar a cotação. Tente novamente.");
-}
+
+
+  // Obter valores de entrada
+  const valor = parseFloat(document.getElementById('amount').value);
+  const daMoeda = document.getElementById('daMoeda').value;
+  const paraMoeda = document.getElementById('paraMoeda').value;
+
+
+  // Buscar taxa de câmbio da API
+  const exchangeRate = await getExchangeRate(daMoeda, paraMoeda);
+
+
+  if (exchangeRate) {
+      const convertedValue = valor * exchangeRate;
+
+
+      // Exibir resultado
+      const conversao = document.getElementById('result');
+      conversao.textContent = `Resultado: ${convertedValue.toFixed(2)} ${paraMoeda}`;
+  } else {
+      alert("Erro ao buscar a cotação. Tente novamente.");
+  }
 });
